@@ -1,12 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 import Filter from "bad-words";
 import toast, { Toaster } from "react-hot-toast";
-import Fade from "react-reveal/Fade";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { FaEnvelope, FaLinkedin, FaGithub, FaInstagram } from "react-icons/fa";
 import mail from "./mailer";
 import styles from "./Contact.module.scss";
-import { MENULINKS } from "../../constants";
+import { MENULINKS, SOCIAL_LINKS } from "../../constants";
 
 const filter = new Filter();
 filter.removeWords("hell", "god", "shit");
@@ -20,23 +20,8 @@ const toastOptions = {
   },
 };
 
-const empty = () =>
-  toast.error("Please fill the required fields", {
-    id: "error",
-  });
-
-const error = () =>
-  toast.error("Error sending your message", {
-    id: "error",
-  });
-
-const success = () =>
-  toast.success("Message sent successfully", {
-    id: "success",
-  });
-
 const Contact = () => {
-  const initialState = { name: "", email: "", message: "" };
+  const initialState = { name: "", email: "", subject: "", message: "" };
   const [formData, setFormData] = useState(initialState);
   const [mailerResponse, setMailerResponse] = useState("not initiated");
   const [isSending, setIsSending] = useState(false);
@@ -65,29 +50,31 @@ const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const { name, email, message } = {
-      name: formData.name,
-      email: formData.email,
-      message: formData.message,
-    };
+    const { name, email, subject, message } = formData;
 
     if (name === "" || email === "" || message === "") {
-      empty();
+      toast.error("Please fill the required fields", { id: "error" });
       return setMailerResponse("empty");
     }
 
     setIsSending(true);
-    mail({ name, email, message })
+
+    const detailedMessage = `Subject: ${subject}\n\n${message}`;
+
+    mail({ name, email, message: detailedMessage })
       .then((res) => {
         if (res.status === 200) {
           setMailerResponse("success");
           emptyForm();
+          toast.success("Message sent successfully", { id: "success" });
         } else {
           setMailerResponse("error");
+          toast.error("Error sending your message", { id: "error" });
         }
       })
       .catch((err) => {
         setMailerResponse("error");
+        toast.error("Error sending your message", { id: "error" });
         console.error(err);
       });
   };
@@ -99,11 +86,14 @@ const Contact = () => {
   }, [mailerResponse]);
 
   useEffect(() => {
-    buttonElementRef.current.addEventListener("click", (e) => {
-      if (!buttonElementRef.current.classList.contains("active")) {
-        buttonElementRef.current.classList.add("active");
+    const btn = buttonElementRef.current;
+    if (!btn) return;
 
-        gsap.to(buttonElementRef.current, {
+    const clickHandler = (e) => {
+      if (!btn.classList.contains("active")) {
+        btn.classList.add("active");
+
+        gsap.to(btn, {
           keyframes: [
             {
               "--left-wing-first-x": 50,
@@ -112,7 +102,7 @@ const Contact = () => {
               "--right-wing-second-y": 100,
               duration: 0.2,
               onComplete() {
-                gsap.set(buttonElementRef.current, {
+                gsap.set(btn, {
                   "--left-wing-first-y": 0,
                   "--left-wing-second-x": 40,
                   "--left-wing-second-y": 100,
@@ -164,22 +154,19 @@ const Contact = () => {
               duration: 0.375,
               onComplete() {
                 setTimeout(() => {
-                  buttonElementRef.current.removeAttribute("style");
+                  btn.removeAttribute("style");
                   gsap.fromTo(
-                    buttonElementRef.current,
-                    {
-                      opacity: 0,
-                      y: -8,
-                    },
+                    btn,
+                    { opacity: 0, y: -8 },
                     {
                       opacity: 1,
                       y: 0,
                       clearProps: true,
                       duration: 0.3,
                       onComplete() {
-                        buttonElementRef.current.classList.remove("active");
+                        btn.classList.remove("active");
                       },
-                    }
+                    },
                   );
                 }, 1800);
               },
@@ -187,7 +174,7 @@ const Contact = () => {
           ],
         });
 
-        gsap.to(buttonElementRef.current, {
+        gsap.to(btn, {
           keyframes: [
             {
               "--text-opacity": 0,
@@ -225,177 +212,191 @@ const Contact = () => {
           ],
         });
       }
-    });
-  }, [buttonElementRef]);
+    };
+
+    btn.addEventListener("click", clickHandler);
+    return () => btn.removeEventListener("click", clickHandler);
+  }, []);
 
   useEffect(() => {
-    const tl = gsap.timeline({ defaults: { ease: "none" } });
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ defaults: { ease: "none" } });
 
-    tl.from(
-      sectionRef.current.querySelectorAll(".staggered-reveal"),
-      { opacity: 0, duration: 0.5, stagger: 0.5 },
-      "<"
-    );
+      tl.from(
+        sectionRef.current.querySelectorAll(".staggered-reveal"),
+        { opacity: 0, duration: 0.5, stagger: 0.5 },
+        "<",
+      );
 
-    ScrollTrigger.create({
-      trigger: sectionRef.current.querySelector(".contact-wrapper"),
-      start: "100px bottom",
-      end: "center center",
-      scrub: 0,
-      animation: tl,
+      ScrollTrigger.create({
+        trigger: sectionRef.current.querySelector(".contact-wrapper"),
+        start: "top 60%",
+        end: "bottom bottom",
+        animation: tl,
+      });
     });
 
-    return () => tl.kill();
-  }, [sectionRef]);
+    return () => ctx.revert();
+  }, []);
+
+  const getIcon = (name) => {
+    switch (name) {
+      case "linkedin":
+        return <FaLinkedin className="text-2xl" />;
+      case "github":
+        return <FaGithub className="text-2xl" />;
+      case "instagram":
+        return <FaInstagram className="text-2xl" />;
+      default:
+        return <FaEnvelope className="text-2xl" />;
+    }
+  };
 
   return (
     <section
       ref={sectionRef}
       id={MENULINKS[4].ref}
-      className="mt-30 w-full relative select-none bg-black pt-20 sm:pt-10 md:pt-5 lg:pt-1 pb-20"
+      className="w-full relative select-none bg-black pt-20 pb-20 mt-20"
     >
       <div>
         <Toaster toastOptions={toastOptions} />
       </div>
-      <div className="section-container flex flex-col justify-center">
-        <div className="flex flex-col contact-wrapper">
-          <div className="flex flex-col">
-            <p className="uppercase tracking-widest text-gray-light-1 staggered-reveal">
-              CONTACT
-            </p>
-            <h1 className="text-6xl mt-2 font-medium text-gradient w-fit staggered-reveal">
-              Contact
-            </h1>
-          </div>
-          <h2 className="text-[1.65rem] font-medium md:max-w-lg w-full mt-2 staggered-reveal">
-            Get In Touch.{" "}
-          </h2>
+      <div className="section-container flex flex-col justify-center contact-wrapper relative z-10">
+        <div className="flex flex-col mb-12">
+          <p className="uppercase tracking-widest text-gray-light-1 staggered-reveal">
+            CONTACT
+          </p>
+          <h1 className="text-6xl mt-2 font-medium text-gradient w-fit staggered-reveal">
+            Get in Touch
+          </h1>
         </div>
 
-        <form className="pt-10 sm:mx-auto sm:w-[30rem] md:w-[35rem] staggered-reveal">
-          <Fade bottom distance={"4rem"}>
-            <div className="relative">
-              <input
-                type="text"
-                id="name"
-                className="block w-full h-12 sm:h-14 px-4 text-xl sm:text-2xl font-mono outline-none border-2 border-purple bg-transparent rounded-[0.6rem] transition-all duration-200"
-                value={formData.name}
-                onChange={handleChange}
-                required
-              />
-              <label
-                htmlFor="name"
-                className="absolute top-0 left-0 h-full flex items-center pl-4 text-lg font-mono transform transition-all"
-              >
-                Name
-              </label>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 staggered-reveal">
+          <div className="flex flex-col justify-between">
+            <div>
+              <h2 className="text-[1.65rem] font-medium w-full text-white mb-6">
+                Let&apos;s discuss on something{" "}
+                <span className="text-purple-400">cool</span> together
+              </h2>
+              <p className="text-gray-400 text-base leading-relaxed mb-8">
+                I&apos;m interested in freelance opportunities. However, if you
+                have other request or question, don&apos;t hesitate to use the
+                form.
+              </p>
+
+              <div className="flex flex-col gap-4 mb-8">
+                <a
+                  href="mailto:andhika0143@gmail.com"
+                  className="flex items-center gap-4 p-4 rounded-xl bg-gray-900/50 hover:bg-gray-800 transition-colors border border-gray-800 group"
+                >
+                  <div className="p-3 rounded-full bg-purple-500/10 text-purple-400 group-hover:bg-purple-500 group-hover:text-white transition-all">
+                    <FaEnvelope size={20} />
+                  </div>
+                  <span className="text-gray-300 font-medium group-hover:text-white transition-colors text-sm">
+                    andhika0143@gmail.com
+                  </span>
+                </a>
+              </div>
             </div>
 
-            <div className="relative mt-14">
-              <input
-                type="text"
-                id="email"
-                className="block w-full h-12 sm:h-14 px-4 text-xl sm:text-2xl font-mono outline-none border-2 border-purple bg-transparent rounded-[0.6rem] transition-all duration-200"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-              <label
-                htmlFor="email"
-                className="absolute top-0 left-0 h-full flex items-center pl-4 text-lg font-mono transform transition-all"
-              >
-                Email
-              </label>
+            <div className="flex gap-4">
+              {SOCIAL_LINKS.map(
+                (link) =>
+                  link.name !== "mail" && (
+                    <a
+                      key={link.name}
+                      href={link.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="p-4 rounded-xl bg-gray-900/50 border border-gray-800 text-gray-400 hover:text-white hover:bg-gray-800 hover:-translate-y-1 transition-all duration-300"
+                    >
+                      {getIcon(link.name)}
+                    </a>
+                  ),
+              )}
+            </div>
+          </div>
+
+          <form className="bg-gray-900/30 p-8 rounded-3xl border border-gray-800 backdrop-blur-sm">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative">
+              <div className="relative group">
+                <input
+                  type="text"
+                  id="name"
+                  className="block w-full h-12 px-4 text-sm font-mono outline-none border border-gray-800 bg-gray-900 rounded-xl transition-all duration-200 focus:border-purple focus:ring-1 focus:ring-purple text-black placeholder:text-gray-600"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="Name"
+                  required
+                />
+              </div>
+
+              <div className="relative group">
+                <input
+                  type="email"
+                  id="email"
+                  className="block w-full h-12 px-4 text-sm font-mono outline-none border border-gray-800 bg-gray-900 rounded-xl transition-all duration-200 focus:border-purple focus:ring-1 focus:ring-purple text-black placeholder:text-gray-600"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="Email"
+                  required
+                />
+              </div>
             </div>
 
-            <div className="relative mt-14">
+            <div className="relative mt-6 group">
+              <input
+                type="text"
+                id="subject"
+                className="block w-full h-12 px-4 text-sm font-mono outline-none border border-gray-800 bg-gray-900 rounded-xl transition-all duration-200 focus:border-purple focus:ring-1 focus:ring-purple text-black placeholder:text-gray-600"
+                value={formData.subject}
+                onChange={handleChange}
+                placeholder="Subject"
+              />
+            </div>
+
+            <div className="relative mt-6 group">
               <textarea
                 id="message"
-                className="block w-full h-auto min-h-[10rem] max-h-[20rem] sm:h-14 py-2 px-4 text-xl sm:text-2xl font-mono outline-none border-2 border-purple bg-transparent rounded-[0.6rem] transition-all duration-200"
+                className="block w-full h-auto min-h-[10rem] max-h-[20rem] py-4 px-4 text-sm font-mono outline-none border border-gray-800 bg-gray-900 rounded-xl transition-all duration-200 focus:border-purple focus:ring-1 focus:ring-purple text-black placeholder:text-gray-600"
                 value={formData.message}
                 onChange={handleChange}
+                placeholder="Message"
                 required
               />
-              <label
-                htmlFor="message"
-                className="absolute top-0 left-0 h-14 flex items-center pl-4 text-lg font-mono transform transition-all"
-              >
-                Message
-              </label>
             </div>
-          </Fade>
 
-          {mailerResponse !== "not initiated" &&
-            (mailerResponse === "success" ? (
-              <div className="hidden">{success()}</div>
-            ) : (
-              <div className="hidden">{error()}</div>
-            ))}
-        </form>
-        <div className="mt-9 mx-auto link">
-          <button
-            ref={buttonElementRef}
-            className={styles.button}
-            disabled={
-              formData.name === "" ||
-              formData.email === "" ||
-              formData.message === ""
-                ? true
-                : false
-            }
-            onClick={handleSubmit}
-          >
-            <span>Send -&gt;</span>
-            <span className={styles.success}>
-              <svg viewBox="0 0 16 16">
-                <polyline points="3.75 9 7 12 13 5"></polyline>
-              </svg>
-              Sent
-            </span>
-            <svg className={styles.trails} viewBox="0 0 33 64">
-              <path d="M26,4 C28,13.3333333 29,22.6666667 29,32 C29,41.3333333 28,50.6666667 26,60"></path>
-              <path d="M6,4 C8,13.3333333 9,22.6666667 9,32 C9,41.3333333 8,50.6666667 6,60"></path>
-            </svg>
-            <div className={styles.plane}>
-              <div className={styles.left} />
-              <div className={styles.right} />
+            <div className="mt-9 link text-center md:text-right">
+              <button
+                ref={buttonElementRef}
+                className={styles.button}
+                disabled={
+                  formData.name === "" ||
+                  formData.email === "" ||
+                  formData.message === ""
+                }
+                onClick={handleSubmit}
+              >
+                <span>Send Message -&gt;</span>
+                <span className={styles.success}>
+                  <svg viewBox="0 0 16 16">
+                    <polyline points="3.75 9 7 12 13 5"></polyline>
+                  </svg>
+                  Sent
+                </span>
+                <svg className={styles.trails} viewBox="0 0 33 64">
+                  <path d="M26,4 C28,13.3333333 29,22.6666667 29,32 C29,41.3333333 28,50.6666667 26,60"></path>
+                  <path d="M6,4 C8,13.3333333 9,22.6666667 9,32 C9,41.3333333 8,50.6666667 6,60"></path>
+                </svg>
+                <div className={styles.plane}>
+                  <div className={styles.left} />
+                  <div className={styles.right} />
+                </div>
+              </button>
             </div>
-          </button>
+          </form>
         </div>
       </div>
-      <style jsx global>{`
-        input,
-        label,
-        textarea {
-          cursor: none;
-        }
-
-        input:hover,
-        textarea:hover {
-          box-shadow: 0 0 0.3rem #7000ff;
-        }
-
-        input:active,
-        input:focus,
-        textarea:active,
-        textarea:focus {
-          box-shadow: 0 0 0.3rem #000000;
-        }
-
-        input:focus + label,
-        input:valid + label {
-          height: 50%;
-          padding-left: 0;
-          transform: translateY(-100%);
-        }
-
-        textarea:focus + label,
-        textarea:valid + label {
-          height: 17%;
-          padding-left: 0;
-          transform: translateY(-100%);
-        }
-      `}</style>
     </section>
   );
 };

@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 import { useLayoutEffect, useRef } from "react";
-import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { MENULINKS, SKILLS } from "../../constants";
@@ -16,11 +15,16 @@ const Skills = () => {
           sectionRef.current.querySelectorAll(".staggered-reveal"),
           { opacity: 0, duration: 0.5, stagger: 0.5 },
           "<"
+        )
+        .from(
+          sectionRef.current.querySelectorAll(".skill-card"),
+          { opacity: 0, y: 20, duration: 0.5, stagger: 0.1, ease: "power2.out" },
+          "<+=0.5"
         );
 
       ScrollTrigger.create({
         trigger: sectionRef.current.querySelector(".skills-wrapper"),
-        start: "100px bottom",
+        start: "top bottom",
         end: "center center",
         scrub: 0,
         animation: tl,
@@ -45,7 +49,7 @@ const Skills = () => {
           height={700}
           width={320}
         />
-        <div className="flex flex-col skills-wrapper">
+        <div className="flex flex-col skills-wrapper z-10 relative">
           <div className="flex flex-col">
             <p className="uppercase tracking-widest text-gray-light-1 staggered-reveal">
               SKILLS
@@ -58,71 +62,30 @@ const Skills = () => {
               using modern frontend architecture.{" "}
             </h2>
           </div>
-          <div className="mt-10">
-            <h3 className="uppercase tracking-widest text-gray-light-2 font-medium text-base mb-4 staggered-reveal">
-              LANGUAGES AND TOOLS
-            </h3>
-            <div className="flex items-center flex-wrap gap-6 staggered-reveal">
-              {SKILLS.languagesAndTools.map((skill) => (
-                <Image
-                  key={skill}
-                  src={`/skills/${skill}.svg`}
-                  alt={skill}
-                  width={50}
-                  height={50}
-                />
-              ))}
-            </div>
-          </div>
-          <div className="mt-10">
-            <h3 className="uppercase tracking-widest text-gray-light-2 font-medium text-base mb-4 staggered-reveal">
-              LIBRARIES AND FRAMEWORKS
-            </h3>
-            <div className="flex flex-wrap gap-6 transform-gpu staggered-reveal">
-              {SKILLS.librariesAndFrameworks.map((skill) => (
-                <Image
-                  key={skill}
-                  src={`/skills/${skill}.svg`}
-                  alt={skill}
-                  width={50}
-                  height={50}
-                />
-              ))}
-            </div>
-          </div>
-          <div className="flex flex-wrap mt-10">
-            <div className="mr-16 xs:mr-20 mb-6 staggered-reveal">
-              <h3 className="uppercase tracking-widest text-gray-light-2 font-medium text-base mb-4">
-                DATABASES
-              </h3>
-              <div className="flex flex-wrap gap-6 transform-gpu">
-                {SKILLS.databases.map((skill) => (
-                  <Image
-                    key={skill}
-                    src={`/skills/${skill}.svg`}
-                    alt={skill}
-                    width={50}
-                    height={50}
-                  />
-                ))}
+
+          <div className="mt-10 grid gap-12">
+            {SKILLS.map((category) => (
+              <div key={category.category} className="staggered-reveal">
+                <h3 className="uppercase tracking-widest text-gray-light-2 font-medium text-base mb-6">
+                  {category.category}
+                </h3>
+                <div className="flex flex-wrap gap-6">
+                  {category.items.map((skill) => (
+                    <div
+                      key={skill.name}
+                      className="skill-card flex flex-col items-center justify-center gap-3 p-6 rounded-2xl bg-gray-900 border border-gray-800 shadow-lg hover:border-gray-600 hover:shadow-gray-900/50 transition-all duration-300 w-32 h-32 group hover:-translate-y-2 cursor-pointer"
+                    >
+                      <div className="text-gray-400 group-hover:text-white transition-colors duration-300 transform group-hover:scale-110">
+                        {skill.icon}
+                      </div>
+                      <span className="text-sm font-medium text-gray-400 group-hover:text-white transition-colors">
+                        {skill.name}
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-            <div className="staggered-reveal">
-              <h3 className="uppercase tracking-widest text-gray-light-2 font-medium text-base mb-4">
-                Other
-              </h3>
-              <div className="flex flex-wrap gap-6 transform-gpu">
-                {SKILLS.other.map((skill) => (
-                  <Image
-                    key={skill}
-                    src={`/skills/${skill}.svg`}
-                    alt={skill}
-                    width={50}
-                    height={50}
-                  />
-                ))}
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>

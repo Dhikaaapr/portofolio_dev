@@ -3,26 +3,14 @@ import styles from "./Loader.module.scss";
 const Loader = () => {
   return (
     <div className={styles.screen}>
-      <div className={styles.container}>
-        <div className={styles.loader}>
-          <span>
-            <span />
-            <span />
-            <span />
-            <span />
-          </span>
-          <div className={styles.base}>
-            <span />
-            <div className={styles.face} />
-          </div>
+      <div className={styles.spinnerContainer}>
+        <div className={styles.spinner}>
+          <div className={styles.ring1} />
+          <div className={styles.ring2} />
+          <div className={styles.ring3} />
+          <span className={styles.text}>AP</span>
         </div>
-        <div className={styles.progress} />
-      </div>
-      <div>
-        <span />
-        <span />
-        <span />
-        <span />
+        <p className={styles.loadingText}>Loading...</p>
       </div>
     </div>
   );

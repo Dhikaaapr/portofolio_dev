@@ -83,9 +83,9 @@ const Hero = () => {
         </h5>
         <h1 className={`${styles.heroName} text-white text-6xl font-semibold`}>
           <span className={`relative ${styles.emphasize} staggered-reveal`}>
-            Shubh
+            Andhika
           </span>
-          <span className="staggered-reveal"> Porwal</span>
+          <span className="staggered-reveal"> Presha Saputra</span>
         </h1>
         <p>
           <span
@@ -96,9 +96,18 @@ const Hero = () => {
         <div className="staggered-reveal">
           <Profiles />
         </div>
-        <div className="staggered-reveal pt-4">
+        <div className="staggered-reveal pt-4 flex gap-4">
           <Button href={`#${MENULINKS[4].ref}`} classes="link" type="primary">
             Let&apos;s Talk
+          </Button>
+          <Button
+            href="/CV_Andhika_Presha_Saputra.pdf"
+            classes="link"
+            type="secondary"
+            download
+            target="_blank"
+          >
+            Download CV
           </Button>
         </div>
       </div>

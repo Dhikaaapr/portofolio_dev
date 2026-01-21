@@ -1,22 +1,42 @@
+import {
+  FaHtml5,
+  FaCss3Alt,
+  FaJs,
+  FaReact,
+  FaNodeJs,
+  FaGitAlt,
+  FaFigma,
+} from "react-icons/fa";
+import {
+  SiTypescript,
+  SiNextdotjs,
+  SiTailwindcss,
+  SiMysql,
+  SiSupabase,
+  SiLaravel,
+  SiFlutter,
+  SiDart,
+  SiExpress,
+} from "react-icons/si";
+
 export const METADATA = {
-  author: "Shubh Porwal",
-  title: "Portfolio | Shubh Porwal",
+  author: "Andhika Presha Saputra",
+  title: "Portfolio | Andhika Presha Saputra",
   description:
-    "Shubh Porwal is a passionate Frontend Engineer, dedicated to crafting aesthetic and modern apps that captivate and engage users.",
-  siteUrl: "https://www.shubhporwal.me/",
-  twitterHandle: "@shubhporwal24",
+    "Andhika Presha Saputra is a Frontend Developer building modern, responsive web interfaces with care and creativity.",
+  siteUrl: "https://andhikapresha.vercel.app/",
+  twitterHandle: "@dhikaaaaaaa",
   keywords: [
-    "Shubh Porwal",
-    "Frontend Engineer",
-    "React Native Engineer",
+    "Andhika Presha Saputra",
+    "Frontend Developer",
+    "Web Developer",
     "Software Engineer",
     "Portfolio",
-    "Devfolio",
-    "Folio",
+    "Next.js",
+    "React",
   ].join(", "),
-  image:
-    "https://res.cloudinary.com/dywdhyojt/image/upload/v1721378510/social-preview.png",
-  language: "English",
+  image: "/foto-andhika-porto.jpg",
+  language: "Indonesian",
   themeColor: "#000000",
 };
 
@@ -44,272 +64,138 @@ export const MENULINKS = [
 ];
 
 export const TYPED_STRINGS = [
-  "A pragmatic Frontend Engineer",
-  "I build things for the web",
-  "I create aesthetic and modern apps",
+  "A Frontend Developer",
+  "I build modern web interfaces",
+  "I create responsive web applications",
 ];
 
 export const SOCIAL_LINKS = [
   {
     name: "mail",
-    url: "mailto: shubhporwal73@gmail.com",
+    url: "mailto: andhika0143@gmail.com",
   },
   {
     name: "linkedin",
-    url: "https://www.linkedin.com/in/shubhporwal/",
+    url: "https://www.linkedin.com/in/andhika-presha-saputra-23b0232b0/",
   },
   {
     name: "github",
-    url: "https://github.com/shubh73",
+    url: "https://github.com/Dhikaaapr",
   },
   {
     name: "instagram",
-    url: "https://www.instagram.com/shubhii73/",
-  },
-  {
-    name: "twitter",
-    url: "https://x.com/shubhporwal24",
+    url: "https://www.instagram.com/dhik.favor",
   },
 ];
 
-export const SKILLS = {
-  languagesAndTools: [
-    "html",
-    "css",
-    "javascript",
-    "typescript",
-    "sass",
-    "nodejs",
-    "webpack",
-    "vite",
-    "firebase",
-    "figma",
-    "tanstack",
-  ],
-  librariesAndFrameworks: [
-    "expo",
-    "react",
-    "redux",
-    "nextjs",
-    "tailwindcss",
-    "styledcomponents",
-    "antdesign",
-    "chakra-ui",
-  ],
-  databases: ["mysql", "mongodb"],
-  other: ["git", "cursor", "sanity"],
-};
+export const SKILLS = [
+  {
+    category: "Languages & Tools",
+    items: [
+      { name: "HTML", icon: <FaHtml5 size={32} /> },
+      { name: "CSS", icon: <FaCss3Alt size={32} /> },
+      { name: "JavaScript", icon: <FaJs size={32} /> },
+      { name: "TypeScript", icon: <SiTypescript size={32} /> },
+      { name: "Dart", icon: <SiDart size={32} /> },
+      { name: "Git", icon: <FaGitAlt size={32} /> },
+      { name: "Figma", icon: <FaFigma size={32} /> },
+    ],
+  },
+  {
+    category: "Libraries & Frameworks",
+    items: [
+      { name: "React", icon: <FaReact size={32} /> },
+      { name: "Next.js", icon: <SiNextdotjs size={32} /> },
+      { name: "Tailwind CSS", icon: <SiTailwindcss size={32} /> },
+      { name: "Node.js", icon: <FaNodeJs size={32} /> },
+      { name: "Express", icon: <SiExpress size={32} /> },
+      { name: "Laravel", icon: <SiLaravel size={32} /> },
+      { name: "Flutter", icon: <SiFlutter size={32} /> },
+    ],
+  },
+  {
+    category: "Databases",
+    items: [
+      { name: "MySQL", icon: <SiMysql size={32} /> },
+      { name: "Supabase", icon: <SiSupabase size={32} /> },
+    ],
+  },
+];
 
 export const PROJECTS = [
   {
-    name: "NextBoss",
-    imageKey: "nextboss",
-    description: "Get hired through DMs not resumes 🤝",
-    gradient: ["#FF69B4", "#FFB6C1"], // hot pink to light pink (cherry blossom inspired)
-    // url: "https://nextboss.in",
-    tech: ["typescript", "react", "expo", "react-query"],
+    name: "Bibliotech",
+    imageKey: "login_bibliotech",
+    description:
+      "Perpustakaan digital dengan sistem rekomendasi buku menggunakan metode SAW 📚",
+    gradient: ["#1A1A2E", "#16213E"],
+    url: "https://github.com/dhikaaaaaaa",
+    tech: ["nextjs", "tailwindcss", "mysql"],
   },
   {
-    name: "ReadyAI",
-    imageKey: "ready-ai",
-    description: "AI that gets you interview ready 🎯",
-    gradient: ["#F4D03F", "#58D68D"], // warm gold to fresh green
-    url: "https://play.google.com/store/apps/details?id=com.app.readyai",
-    tech: ["typescript", "react"],
+    name: "Calmora",
+    imageKey: "login_calmora",
+    description:
+      "Platform kesehatan mental dengan chatbot AI dan fitur konseling 🧠",
+    gradient: ["#134E5E", "#71B280"],
+    url: "https://github.com/dhikaaaaaaa",
+    tech: ["react", "nodejs", "mysql", "tailwindcss"],
   },
   {
-    name: "Grapevine Round1 AI",
-    imageKey: "round1",
-    description: "Ace your round one in 9 minutes  💼",
-    gradient: ["#5D4037", "#8D6E63"], // dark brown to medium brown
-    url: "https://play.google.com/store/apps/details?id=com.app.gvine",
-    tech: ["typescript", "react", "react-query"],
-  },
-  {
-    name: "React Native Directory",
-    imageKey: "react-native-directory",
-    description: "Search & filter React Native libraries via Raycast ⌨️",
-    gradient: ["#000000", "#1A1A1A"], // pure black to dark gray
-    url: "https://www.raycast.com/shubh_porwal/react-native-directory",
-    tech: ["typescript", "react", "expo", "raycast"],
-  },
-  {
-    name: "Buywow",
-    imageKey: "buywow",
-    description: "Official Wow Skin Science app 🌿",
-    gradient: ["#FFD54F", "#FFB300"], // bright golden yellow to deep orange
-    url: "https://play.google.com/store/apps/details?id=co.tapcart.app.id_99G6QNo3nu",
-    tech: ["typescript", "react", "react-query"],
-  },
-  {
-    name: "Bot9",
-    imageKey: "bot9",
-    description: "Automate support with AI 🤖",
-    gradient: ["#3F51B5", "#7986CB"], // indigo to medium blue
-    url: "https://bot9.ai/",
-    tech: ["typescript", "react", "nextjs", "tailwindcss"],
-  },
-  {
-    name: "Dukaan",
-    imageKey: "dukaan",
-    description: "Shopify for India 🛍️",
-    gradient: ["#1976D2", "#1565C0"], // material blue to deep blue
-    url: "https://play.google.com/store/apps/details?id=com.dukaan.app",
-    tech: ["typescript", "react", "firebase", "tailwindcss", "react-query"],
-  },
-  {
-    name: "Tesla",
-    imageKey: "tesla",
-    description: "Built with Expo 🏎️",
-    gradient: ["#0F172A", "#1E293B"], // midnight blue to dark slate (electric/tech feel)
-    url: "https://github.com/shubh73/tesla",
-    tech: ["javascript", "expo"],
-  },
-  {
-    name: "Airbnb",
-    imageKey: "airbnb",
-    description: "Built with NextJS + Tailwind CSS 🛏️",
-    gradient: ["#1F2937", "#6B7280"], // dark gray to medium gray
-    url: "https://shubh73-airbnb.vercel.app/",
-    tech: ["javascript", "react", "nextjs", "mapbox", "tailwindcss"],
-  },
-  {
-    name: "Medium",
-    imageKey: "medium",
-    description: "Built with NextJS + Tailwind CSS ✍🏻",
-    gradient: ["#FF9800", "#F57C00"], // warm orange to deep orange
-    url: "https://shubh73-medium.vercel.app/",
-    tech: ["typescript", "react", "nextjs", "tailwindcss", "sanity"],
-  },
-  {
-    name: "Inshorts",
-    imageKey: "inshorts",
-    description: "Voice-enabled news using Alan AI 🎙",
-    gradient: ["#6366F1", "#4F46E5"], // indigo to deep indigo
-    url: "https://shubh73-inshorts.netlify.app/",
-    tech: ["javascript", "react", "chakra-ui", "alan"],
+    name: "Portfolio Website",
+    imageKey: "web_portofolio",
+    description: "Website portfolio personal dengan desain modern 🎨",
+    gradient: ["#0F2027", "#203A43"],
+    url: "https://github.com/dhikaaaaaaa",
+    tech: ["nextjs", "tailwindcss", "typescript"],
   },
 ];
 
 export const WORK_CONTENTS = {
-  GRAPEVINE: [
+  PARAMADINA: [
     {
-      title: "Grapevine",
+      title: "Universitas Paramadina",
       description:
-        "Grapevine is your anonymous office chat, letting coworkers speak openly, share gossip and connect without filters. Building on that same belief, Round1 AI brings it to hiring using AI-driven interviews to replace guesswork with genuine and meaningful conversations.",
+        "Berkontribusi dalam pengembangan Calmora, sebuah platform digital berbasis web yang menyediakan akses informasi kesehatan mental dan membantu pengguna menemukan konselor secara mudah.",
       content: (
         <div className="h-full w-full flex items-center justify-center text-white px-4">
-          Connect anonymously. Share freely.
+          Frontend Developer
         </div>
       ),
     },
     {
-      title: "Pioneering",
+      title: "Calmora Project",
       description:
-        "Hiring was broken — manual, biased, and slow. We launched Round1 AI to fix that: authentic voice interviews, built-in bias checks and real-time insights. Today, it powers thousands of interviews each week, letting teams hire smarter, faster and fairer.",
+        "Bertanggung jawab melakukan slicing desain UI ke dalam bentuk halaman website responsif menggunakan teknologi frontend modern seperti HTML, CSS, dan Tailwind CSS. Mengintegrasikan API chatbot khusus kesehatan mental.",
       content: (
         <div className="h-full w-full flex items-center justify-center text-white px-4">
-          Senior Frontend Engineer
-        </div>
-      ),
-    },
-    {
-      title: "Elevate",
-      description:
-        "The early web app struggled with slow performance and zero retention. I rebuilt it from the ground up with a sleek UI, faster load times and SEO-optimized. Then seeded a rich content layer to spark discovery. The payoff? 6x more impressions and 10x the organic installs all without ads, just momentum.",
-      content: (
-        <div className="h-full w-full flex items-center justify-center text-white px-4">
-          Frontend Engineer
+          Sep 2024 - Jan 2025
         </div>
       ),
     },
   ],
-  DUKAAN: [
+  HIMTI: [
     {
-      title: "Dukaan",
+      title: "HIMTI",
       description:
-        "Dukaan is a platform that enables businesses to launch their online stores at ease.",
+        "Himpunan Mahasiswa Teknik Informatika - Aktif dalam perencanaan dan pelaksanaan berbagai kegiatan edukatif seperti pelatihan, workshop, dan webinar untuk meningkatkan kemampuan akademik dan teknis mahasiswa.",
       content: (
         <div className="h-full w-full flex items-center justify-center text-white px-4">
-          Revolutionizing commerce, one click at a time
+          Anggota Human Education
         </div>
       ),
     },
     {
-      title: "Transformation",
+      title: "Program Kegiatan",
       description:
-        "Since 2023, the Dukaan Seller Dashboard struggled with technical issues and a broken user experience due to accumulated technical debt. Leading a team of two junior developers, we migrated the dashboard from CSR to SSR, redesigned the UI, and overhauled the codebase in the process. This resolved the technical debt and vastly improved the user experience, making it Dukaan's largest and most impactful migration.",
+        "Berperan dalam realisasi program unggulan seperti BRAHMA: IT FEAST READY, Kobit Academy, dan Webinar Series Alumni. Membantu penyusunan kurikulum, koordinasi pemateri, serta pengelolaan logistik kegiatan.",
       content: (
         <div className="h-full w-full flex items-center justify-center text-white px-4">
-          Senior Frontend Engineer
-        </div>
-      ),
-    },
-    {
-      title: "Evolution",
-      description:
-        "Recognizing the need for improved performance and user engagement, I spearheaded the migration of the Dukaan App from native to React-Native for iOS and Android platforms. This strategic move led to a X% enhancement in app performance and a Y% boost in user engagement, representing a significant milestone in the app's evolution.",
-      content: (
-        <div className="h-full w-full flex items-center justify-center text-white px-4">
-          Frontend Engineer
-        </div>
-      ),
-    },
-    {
-      title: "Optimization",
-      description:
-        "Leveraging user feedback and analytics, I improved the seller web dashboard design, reducing bounce rates. Simultaneously, I overhauled the build process, slashing bundle size and boosting overall performance.",
-      content: (
-        <div className="h-full w-full flex items-center justify-center text-white px-4">
-          Frontend Engineer Intern
+          Jun 2022 - Des 2022
         </div>
       ),
     },
   ],
-  // AVIATE: [
-  //   {
-  //     title: "Aviate",
-  //     description:
-  //       "Aviate is a preparation and mentorship platform for job-seekers that are seeking non-technical roles across top companies",
-  //     content: (
-  //       <div className="h-full w-full flex items-center justify-center text-white px-4">
-  //         Finding the right job isn&apos;t fate, it&apos;s navigation
-  //       </div>
-  //     ),
-  //   },
-  //   {
-  //     title: "Innovation",
-  //     description:
-  //       "I spearheaded the development of Q-Rate, their flagship product, a voice-based applicant screening platform. Moreover, I took initiatives to enhance user engagement and drive substantial increases in daily traffic. Additionally, I implemented an error-logging and bug reporting system, significantly diminishing user-reported bugs.",
-  //     content: (
-  //       <div className="h-full w-full flex items-center justify-center text-white px-4">
-  //         Frontend Developer Intern
-  //       </div>
-  //     ),
-  //   },
-  // ],
-  // SPACENOS: [
-  //   {
-  //     title: "Spacenos",
-  //     description:
-  //       "A dynamic startup dedicated to creating innovative products that make the world a better place.",
-  //     content: (
-  //       <div className="h-full w-full flex items-center justify-center text-white px-4">
-  //         We build apps that solve problems for the next billion people
-  //       </div>
-  //     ),
-  //   },
-  //   {
-  //     title: "Trailblazing",
-  //     description:
-  //       "I led the comprehensive overhaul of the Admin Portal, implementing CRUD features for all services and providers. Additionally, I architected a feature enabling precise customer location tracking and delivering insightful usage statistics. Through optimized and compressed file serving, I catalyzed a remarkable Yx increase in page speed, resulting in a X% boost in customer retention.",
-  //     content: (
-  //       <div className="h-full w-full flex items-center justify-center text-white px-4">
-  //         Web Developer Intern
-  //       </div>
-  //     ),
-  //   },
-  // ],
 };
 
-export const GTAG = "G-5HCTL2TJ5W";
+export const GTAG = "G-XXXXXXXXXX";

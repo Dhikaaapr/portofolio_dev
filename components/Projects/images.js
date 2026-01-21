@@ -1,25 +1,9 @@
-import nextboss from "../../public/projects/nextboss.webp";
-import readyAi from "../../public/projects/ready-ai.webp";
-import round1 from "../../public/projects/round1.webp";
-import reactNativeDirectory from "../../public/projects/react-native-directory.webp";
-import buywow from "../../public/projects/buywow.webp";
-import bot9 from "../../public/projects/bot9.webp";
-import dukaan from "../../public/projects/dukaan.webp";
-import airbnb from "../../public/projects/airbnb.webp";
-import medium from "../../public/projects/medium.webp";
-import inshorts from "../../public/projects/inshorts.webp";
-import tesla from "../../public/projects/tesla.webp";
+import loginBibliotech from "../../public/projects/login_bibliotech.png";
+import loginCalmora from "../../public/projects/login_calmora.svg";
+import webPortofolio from "../../public/projects/web_portofolio.png";
 
 export const PROJECT_IMAGES = {
-  nextboss,
-  "ready-ai": readyAi,
-  round1,
-  "react-native-directory": reactNativeDirectory,
-  buywow,
-  bot9,
-  dukaan,
-  airbnb,
-  medium,
-  inshorts,
-  tesla,
+  login_bibliotech: loginBibliotech,
+  login_calmora: loginCalmora,
+  web_portofolio: webPortofolio,
 };
