@@ -64,7 +64,7 @@ export const MENULINKS = [
 ];
 
 export const TYPED_STRINGS = [
-  "A Frontend Developer",
+  "A Fullstack Developer",
   "I build modern web interfaces",
   "I create responsive web applications",
 ];
@@ -131,15 +131,39 @@ export const PROJECTS = [
     gradient: ["#1A1A2E", "#16213E"],
     url: "https://github.com/dhikaaaaaaa",
     tech: ["nextjs", "tailwindcss", "mysql"],
+    // video: "bibliotech.mp4", // Upload video to public/projects/
   },
   {
-    name: "Calmora",
-    imageKey: "login_calmora",
+    name: "Mentalist - User App",
+    imageKey: "chatbot_calmora",
     description:
-      "Platform kesehatan mental dengan chatbot AI dan fitur konseling 🧠",
+      "Aplikasi mobile untuk pengguna mencari konselor dan tes kesehatan mental 📱",
     gradient: ["#134E5E", "#71B280"],
     url: "https://github.com/dhikaaaaaaa",
-    tech: ["react", "nodejs", "mysql", "tailwindcss"],
+    tech: ["flutter", "laravel", "mysql", "supabase"],
+    video: "aplikasi_user.mp4",
+    isMobile: true,
+  },
+  {
+    name: "Mentalist - Counselor App",
+    imageKey: "council_calmora",
+    description:
+      "Aplikasi khusus konselor untuk mengelola sesi dan chat pasien 👨‍⚕️",
+    gradient: ["#5D26C1", "#a17fe0"],
+    url: "https://github.com/dhikaaaaaaa",
+    tech: ["flutter", "laravel", "mysql", "supabase"],
+    video: "aplikasi_counselor.mov",
+    isMobile: true,
+  },
+  {
+    name: "Mentalist - Admin",
+    imageKey: "login_calmora",
+    description:
+      "Dashboard admin untuk manajemen user, konselor, dan konten 💻",
+    gradient: ["#2C5364", "#203A43"],
+    url: "https://github.com/dhikaaaaaaa",
+    tech: ["laravel", "mysql", "tailwindcss", "filament"],
+    video: "aplikasi admin.mp4",
   },
   {
     name: "Portfolio Website",
@@ -148,6 +172,7 @@ export const PROJECTS = [
     gradient: ["#0F2027", "#203A43"],
     url: "https://github.com/dhikaaaaaaa",
     tech: ["nextjs", "tailwindcss", "typescript"],
+    // video: "portfolio.mp4",
   },
 ];
 

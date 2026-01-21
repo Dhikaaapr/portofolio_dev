@@ -12,7 +12,7 @@ const tiltOptions = {
   gyroscope: false,
 };
 
-const ProjectTile = ({ project, classes, isDesktop }) => {
+const ProjectTile = ({ project, classes, isDesktop, openModal }) => {
   const projectCard = useRef(null);
 
   const { name, imageKey, description, gradient, url, tech } = project;
@@ -28,12 +28,26 @@ const ProjectTile = ({ project, classes, isDesktop }) => {
     VanillaTilt.init(projectCard.current, tiltOptions);
   }, [projectCard]);
 
+  const handleClick = (e) => {
+     if (project.video) {
+      e.preventDefault();
+      openModal(project);
+    }
+  };
+
+  const Wrapper = project.video ? "div" : "a";
+  const wrapperProps = project.video
+    ? { onClick: handleClick, className: `cursor-pointer overflow-hidden rounded-3xl snap-start link ${additionalClasses}` }
+    : {
+        href: url,
+        target: "_blank",
+        rel: "noreferrer",
+        className: `overflow-hidden rounded-3xl snap-start link ${additionalClasses}`,
+      };
+
   return (
-    <a
-      href={url}
-      className={`overflow-hidden rounded-3xl snap-start link ${additionalClasses}`}
-      target="_blank"
-      rel="noreferrer"
+    <Wrapper
+      {...wrapperProps}
       style={{
         maxWidth: isDesktop ? "calc(100vw - 2rem)" : "calc(100vw - 4rem)",
         flex: "1 0 auto",
@@ -53,13 +67,37 @@ const ProjectTile = ({ project, classes, isDesktop }) => {
           className="absolute w-full h-full top-0 left-0 opacity-20 rounded-3xl"
           fill
         />
-        <Image
-          src={image}
-          alt={name}
-          placeholder={image?.blurDataURL ? "blur" : "empty"}
-          fill
-          className={styles.projectImage}
-        />
+        {project.video ? (
+          project.isMobile ? (
+            <div className={`${styles.projectVideo} border-[8px] border-gray-900 rounded-[2.5rem] overflow-hidden bg-black aspect-[9/19] !w-auto !h-[90%] !top-1/2 !-translate-y-1/2 right-8`}>
+               <video
+                src={`/projects/${project.video}`}
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="w-full h-full object-fill"
+              />
+            </div>
+          ) : (
+            <video
+              src={`/projects/${project.video}`}
+              autoPlay
+              muted
+              loop
+              playsInline
+              className={`${styles.projectVideo} rounded-xl`}
+            />
+          )
+        ) : (
+          <Image
+            src={image}
+            alt={name}
+            placeholder={image?.blurDataURL ? "blur" : "empty"}
+            fill
+            className={styles.projectImage}
+          />
+        )}
         {!isDesktop && (
           <div
             className="absolute bottom-0 left-0 w-full h-20"
@@ -74,24 +112,7 @@ const ProjectTile = ({ project, classes, isDesktop }) => {
         >
           {name}
         </h1>
-        <div
-          className={`
-            ${styles.techIcons} w-1/2 h-full absolute left-24 top-0 sm:flex items-center hidden
-          `}
-        >
-          <div className="flex flex-col pb-8">
-            {tech.map((el, i) => (
-              <Image
-                className={`${i % 2 === 0 && "ml-16"} mb-4`}
-                src={`/projects/tech/${el}.svg`}
-                alt={el}
-                height={45}
-                width={45}
-                key={el}
-              />
-            ))}
-          </div>
-        </div>
+
         <h2
           className="text-lg z-10 tracking-wide font-medium text-white transform-gpu"
           style={{ transform: "translateZ(0.8rem)" }}
@@ -99,7 +120,7 @@ const ProjectTile = ({ project, classes, isDesktop }) => {
           {description}
         </h2>
       </div>
-    </a>
+    </Wrapper>
   );
 };
 

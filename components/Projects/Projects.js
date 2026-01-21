@@ -1,12 +1,14 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MENULINKS, PROJECTS } from "../../constants";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import ProjectTile from "./ProjectTile/ProjectTile";
+import ProjectModal from "./ProjectModal/ProjectModal";
 
 const Projects = ({ isDesktop, clientHeight }) => {
   const sectionRef = useRef(null);
   const sectionTitleRef = useRef(null);
+  const [selectedProject, setSelectedProject] = useState(null);
 
   useEffect(() => {
     let projectsScrollTrigger;
@@ -115,10 +117,15 @@ const Projects = ({ isDesktop, clientHeight }) => {
               }
               project={project}
               key={project.name}
+              openModal={setSelectedProject}
             />
           ))}
         </div>
       </div>
+      <ProjectModal
+        project={selectedProject}
+        onClose={() => setSelectedProject(null)}
+      />
     </section>
   );
 };
